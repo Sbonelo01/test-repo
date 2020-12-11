@@ -16,7 +16,7 @@ class RestaurantController extends Controller
     {
 
         // Get all Restaurant
-        $restaurant = Restaurant::get();
+        $restaurant = Restaurant::all();
 
         //
         return [
