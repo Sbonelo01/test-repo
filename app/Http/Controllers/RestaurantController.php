@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Restaurant;
 
 class RestaurantController extends Controller
 {
@@ -13,7 +14,15 @@ class RestaurantController extends Controller
      */
     public function index()
     {
+
+        // Get all Restaurant
+        $restaurant = Restaurant::get();
+
         //
+        return [
+            'success' => true,
+            'data'    => $restaurant
+        ];
     }
 
     /**
@@ -34,9 +43,20 @@ class RestaurantController extends Controller
      */
     public function store(Request $request)
     {
+
+        // Validation
+
+        // Store
+        $results = Restaurant::create([
+            'name'      => $request->name,
+            'address'   => $request->address,
+            'telephone' => $request->telephone
+        ]);
+
         //
         return [
-            'success' => true
+            'success' => true,
+            'data'    => $results
         ];
     }
 
@@ -48,9 +68,14 @@ class RestaurantController extends Controller
      */
     public function show($id)
     {
+
+        // Find Restaurant
+        $restaurant = Restaurant::findOrFail($id);
+
         //
         return [
-            'success' => true
+            'success' => true,
+            'data'    => $restaurant
         ];
     }
 
@@ -74,9 +99,22 @@ class RestaurantController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        // Validation
+        
+        // Find
+        $restaurant = Restaurant::findOrFail($id);
+
+        // Update
+        $restaurant->name      = $request->name;
+        $restaurant->address   = $request->address;
+        $restaurant->telephone = $request->telephone;
+
+        $restaurant->save();
+
         return [
-            'success' => true
+            'success' => true,
+            'data'    => $restaurant
         ];
     }
 
@@ -88,9 +126,16 @@ class RestaurantController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        // Find model to delete
+        $restaurant = Restaurant::findOrFail($id);
+
+        // Delete model
+        $restaurant->delete();
+
         return [
-            'success' => true
+            'success' => true,
+            'data'    => $restaurant
         ];
     }
 }

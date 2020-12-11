@@ -13,6 +13,6 @@ class RestaurantSeeder extends Seeder
      */
     public function run()
     {
-        //
+        // \App\Models\Restaurant::factory(10)->create();
     }
 }
